@@ -105,3 +105,34 @@ The rule engine classifies evidence only. It does not yet calculate the directly
 ### LLM boundary
 
 An LLM may later assist with extraction or propose a classification, but it cannot override the deterministic final evidence status.
+
+---
+
+## Commit 4 — Add Verified-Only Claim Engine
+
+### Decision
+
+The directly verified amount must be calculated only from transactions whose final evidence status is Verified.
+
+### Included
+
+- New claim_engine.py module
+- MX$30,000 claim threshold
+- Verified-only amount calculation
+- Threshold met / Threshold not met result
+- Claim result displayed in Streamlit
+- Corroborated, Unresolved, and Excluded amounts remain outside the verified total
+
+### Important boundary
+
+The claim result is deterministic and based only on structured final evidence status.
+
+No LLM output controls the verified amount or threshold result.
+
+### Current synthetic result
+
+Using the current synthetic María dataset:
+
+- Directly verified amount: MX$31,600
+- Claim threshold: MX$30,000
+- Result: Threshold met

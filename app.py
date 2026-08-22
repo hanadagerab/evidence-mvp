@@ -2,6 +2,7 @@ import streamlit as st
 
 import pandas as pd
 from verification import classify_transaction
+from claim_engine import calculate_verified_amount, evaluate_threshold, CLAIM_THRESHOLD
 
 st.set_page_config(
     page_title="Evidence",
@@ -45,6 +46,23 @@ transactions[["final_status", "reason"]] = pd.DataFrame(
     classification_results.tolist(),
     index=transactions.index
 )
+
+verified_amount = calculate_verified_amount(transactions)
+claim_result = evaluate_threshold(verified_amount)
+
+st.markdown("### Claim Result")
+
+st.metric(
+    label="Directly Verified Amount",
+    value=f"MX${verified_amount:,.0f}"
+)
+
+st.write(f"Claim threshold: MX${CLAIM_THRESHOLD:,.0f}")
+
+if claim_result == "Threshold met":
+    st.success("Threshold met")
+else:
+    st.warning("Threshold not met")
 
 display_columns = [
     "transaction_id",
