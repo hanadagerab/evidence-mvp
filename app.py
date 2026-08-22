@@ -27,3 +27,12 @@ st.caption(
     "It does not generate a credit score, risk score, "
     "probability of default, or lending recommendation."
 )
+import pandas as pd
+
+st.divider()
+
+st.markdown("### Synthetic Maria Evidence Data")
+
+transactions = pd.read_csv("data/maria_transactions.csv")
+
+st.dataframe(transactions, use_container_width=True)

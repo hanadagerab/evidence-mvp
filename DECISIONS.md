@@ -40,3 +40,34 @@ Start with the smallest possible working Streamlit application before adding dat
 ### Reason
 
 The first commit should prove that the development environment, project structure, Git repository, and Streamlit application work correctly before adding business logic.
+
+---
+
+## Commit 2 — Add Synthetic Maria Evidence Dataset
+
+### Decision
+
+Use a small, fully synthetic monthly dataset for María before implementing any verification rules.
+
+### Included
+
+- Synthetic SPEI transactions
+- Synthetic Mercado Pago transactions
+- Synthetic cash transactions
+- Self-transfer example
+- Refund / reversal example
+- Duplicate transaction example
+- Ambiguous transaction example
+- Non-business transaction example
+- Basic pandas loading
+- Basic Streamlit table display
+
+### Important boundary
+
+This commit does not assign final evidence statuses or calculate the MX$30,000 threshold.
+
+The dataset only provides structured inputs that the deterministic verification rules will evaluate in the next commit.
+
+### Security
+
+All records are synthetic. No real personal, banking, or transaction data is used.

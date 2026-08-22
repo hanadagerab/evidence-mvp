@@ -1,0 +1,13 @@
+transaction_id,date,source,description,amount,evidence_source,evidence_present,independent_support,is_self_transfer,is_refund_reversal,is_duplicate,is_business_related,provenance
+T001,2026-08-01,SPEI,Catering payment,8500,Bank transfer + invoice,yes,yes,no,no,no,yes,Synthetic SPEI record matched to synthetic invoice
+T002,2026-08-03,Mercado Pago,Food order batch,6200,Mercado Pago transaction + order record,yes,yes,no,no,no,yes,Synthetic Mercado Pago record matched to synthetic order
+T003,2026-08-05,Cash,Lunch sales,4200,Receipt and WhatsApp message,yes,no,no,no,no,yes,Synthetic cash receipt and synthetic message
+T004,2026-08-07,SPEI,Event deposit,9100,Bank transfer + event receipt,yes,yes,no,no,no,yes,Synthetic SPEI record matched to synthetic event receipt
+T005,2026-08-10,Cash,Weekend sales,3900,Handwritten receipt,yes,no,no,no,no,yes,Synthetic cash receipt only
+T006,2026-08-12,SPEI,Transfer from own account,5000,Bank transfer,yes,yes,yes,no,no,no,Synthetic self-transfer
+T007,2026-08-14,Mercado Pago,Refunded order,1800,Mercado Pago reversal record,yes,yes,no,yes,no,yes,Synthetic refund or reversal
+T008,2026-08-16,SPEI,Unclear incoming transfer,2600,Bank transfer only,no,no,no,no,no,unknown,Synthetic transfer with insufficient context
+T009,2026-08-18,Mercado Pago,Corporate lunch order,7800,Mercado Pago transaction + invoice,yes,yes,no,no,no,yes,Synthetic Mercado Pago record matched to synthetic invoice
+T010,2026-08-18,Mercado Pago,Corporate lunch order duplicate,7800,Mercado Pago transaction + invoice,yes,yes,no,no,yes,yes,Synthetic duplicate of T009
+T011,2026-08-20,SPEI,Private reimbursement,1200,Bank transfer,yes,no,no,no,no,no,Synthetic non-business reimbursement
+T012,2026-08-22,Cash,Catering cash payment,3500,Receipt and customer message,yes,no,no,no,no,yes,Synthetic cash evidence without independent support
