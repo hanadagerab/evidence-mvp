@@ -71,3 +71,37 @@ The dataset only provides structured inputs that the deterministic verification 
 ### Security
 
 All records are synthetic. No real personal, banking, or transaction data is used.
+
+---
+
+## Commit 3 — Add Deterministic Evidence Classification Rules
+
+### Decision
+
+Final evidence status must be assigned by deterministic, inspectable rules rather than by an LLM.
+
+### Included
+
+- New verification.py module
+- Final evidence categories:
+  - Verified
+  - Corroborated
+  - Unresolved
+  - Excluded
+- Deterministic exclusion rules for:
+  - Duplicate transactions
+  - Refunds / reversals
+  - Self-transfers
+  - Non-business transactions
+- Unresolved handling for ambiguous or incomplete evidence
+- Cash remains Corroborated unless independent supporting evidence exists
+- SPEI and Mercado Pago may be Verified when independent evidence supports the business inflow
+- Final status and reason displayed in Streamlit
+
+### Important boundary
+
+The rule engine classifies evidence only. It does not yet calculate the directly verified total or evaluate the MX$30,000 threshold.
+
+### LLM boundary
+
+An LLM may later assist with extraction or propose a classification, but it cannot override the deterministic final evidence status.

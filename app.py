@@ -1,5 +1,8 @@
 import streamlit as st
 
+import pandas as pd
+from verification import classify_transaction
+
 st.set_page_config(
     page_title="Evidence",
     page_icon="🔎",
@@ -27,12 +30,34 @@ st.caption(
     "It does not generate a credit score, risk score, "
     "probability of default, or lending recommendation."
 )
-import pandas as pd
-
 st.divider()
 
 st.markdown("### Synthetic Maria Evidence Data")
 
 transactions = pd.read_csv("data/maria_transactions.csv")
 
-st.dataframe(transactions, use_container_width=True)
+classification_results = transactions.apply(
+    classify_transaction,
+    axis=1
+)
+
+transactions[["final_status", "reason"]] = pd.DataFrame(
+    classification_results.tolist(),
+    index=transactions.index
+)
+
+display_columns = [
+    "transaction_id",
+    "date",
+    "source",
+    "description",
+    "amount",
+    "final_status",
+    "reason",
+    "provenance",
+]
+
+st.dataframe(
+    transactions[display_columns],
+    use_container_width=True
+)
