@@ -136,3 +136,37 @@ Using the current synthetic María dataset:
 - Directly verified amount: MX$31,600
 - Claim threshold: MX$30,000
 - Result: Threshold met
+
+---
+
+## Commit 5 — Add Evidence Dashboard and Explanations
+
+### Decision
+
+The MVP should make it easy for María to understand what counted, what did not count, why, and whether the threshold was met.
+
+### Included
+
+- Clear claim result section
+- Directly Verified Amount
+- Claim Threshold
+- Threshold met / Threshold not met
+- Separate totals for Verified, Corroborated, Unresolved, and Excluded evidence
+- Clear explanation of each evidence category
+- Persona-focused explanation for María
+- Evidence table with final status, reason, and provenance
+
+### Important boundary
+
+Only Verified evidence contributes to the directly verified amount.
+
+Corroborated, Unresolved, and Excluded evidence remain visible but separate.
+
+### Persona test
+
+María should be able to understand:
+
+- what counted;
+- what did not count;
+- why each item received its status;
+- whether the MX$30,000 threshold was met.

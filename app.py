@@ -1,8 +1,12 @@
 import streamlit as st
-
 import pandas as pd
+
 from verification import classify_transaction
-from claim_engine import calculate_verified_amount, evaluate_threshold, CLAIM_THRESHOLD
+from claim_engine import (
+    calculate_verified_amount,
+    evaluate_threshold,
+    CLAIM_THRESHOLD,
+)
 
 st.set_page_config(
     page_title="Evidence",
@@ -11,14 +15,16 @@ st.set_page_config(
 )
 
 st.title("Evidence")
-
 st.subheader("A verification layer, not another score.")
-
 st.write(
     "Grade the evidence, not the person. Verify broadly, disclose narrowly."
 )
 
 st.divider()
+
+# ----------------------------
+# MVP Claim
+# ----------------------------
 
 st.markdown("### MVP Claim")
 
@@ -31,38 +37,124 @@ st.caption(
     "It does not generate a credit score, risk score, "
     "probability of default, or lending recommendation."
 )
-st.divider()
 
-st.markdown("### Synthetic Maria Evidence Data")
+# ----------------------------
+# Load + classify evidence
+# ----------------------------
 
 transactions = pd.read_csv("data/maria_transactions.csv")
 
 classification_results = transactions.apply(
     classify_transaction,
-    axis=1
+    axis=1,
 )
 
 transactions[["final_status", "reason"]] = pd.DataFrame(
     classification_results.tolist(),
-    index=transactions.index
+    index=transactions.index,
 )
+
+# ----------------------------
+# Claim calculation
+# ----------------------------
 
 verified_amount = calculate_verified_amount(transactions)
 claim_result = evaluate_threshold(verified_amount)
 
-st.markdown("### Claim Result")
-
-st.metric(
-    label="Directly Verified Amount",
-    value=f"MX${verified_amount:,.0f}"
+category_totals = (
+    transactions.groupby("final_status")["amount"]
+    .sum()
+    .to_dict()
 )
 
-st.write(f"Claim threshold: MX${CLAIM_THRESHOLD:,.0f}")
+verified_total = category_totals.get("Verified", 0)
+corroborated_total = category_totals.get("Corroborated", 0)
+unresolved_total = category_totals.get("Unresolved", 0)
+excluded_total = category_totals.get("Excluded", 0)
+
+st.divider()
+
+# ----------------------------
+# Claim Result
+# ----------------------------
+
+st.markdown("### Claim Result")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.metric(
+        label="Directly Verified Amount",
+        value=f"MX${verified_amount:,.0f}",
+    )
+
+with col2:
+    st.metric(
+        label="Claim Threshold",
+        value=f"MX${CLAIM_THRESHOLD:,.0f}",
+    )
 
 if claim_result == "Threshold met":
     st.success("Threshold met")
 else:
     st.warning("Threshold not met")
+
+st.caption(
+    "Only evidence classified as Verified is included in the directly "
+    "verified amount."
+)
+
+# ----------------------------
+# Evidence Breakdown
+# ----------------------------
+
+st.markdown("### Evidence Breakdown")
+
+c1, c2, c3, c4 = st.columns(4)
+
+with c1:
+    st.metric("Verified", f"MX${verified_total:,.0f}")
+
+with c2:
+    st.metric("Corroborated", f"MX${corroborated_total:,.0f}")
+
+with c3:
+    st.metric("Unresolved", f"MX${unresolved_total:,.0f}")
+
+with c4:
+    st.metric("Excluded", f"MX${excluded_total:,.0f}")
+
+st.caption(
+    "These categories are shown separately. Corroborated and unresolved "
+    "amounts are never blended into the directly verified total."
+)
+
+# ----------------------------
+# Maria explanation
+# ----------------------------
+
+st.markdown("### What this means for María")
+
+st.write(
+    f"María has **MX${verified_amount:,.0f} in directly verified business "
+    f"inflows**. The claim requires at least **MX${CLAIM_THRESHOLD:,.0f}**."
+)
+
+st.write(
+    "- **Verified** evidence counts toward the claim.\n"
+    "- **Corroborated** evidence has support, but not enough independent "
+    "support to count as directly verified.\n"
+    "- **Unresolved** evidence is too incomplete or ambiguous to classify "
+    "more strongly.\n"
+    "- **Excluded** activity does not belong in the claim, such as "
+    "self-transfers, refunds, duplicates, or non-business activity."
+)
+
+# ----------------------------
+# Evidence Table
+# ----------------------------
+
+st.markdown("### María's Evidence")
 
 display_columns = [
     "transaction_id",
@@ -77,5 +169,10 @@ display_columns = [
 
 st.dataframe(
     transactions[display_columns],
-    use_container_width=True
+    use_container_width=True,
+)
+
+st.caption(
+    "Evidence is evaluated for this specific claim only. "
+    "The system grades the evidence, not María."
 )
