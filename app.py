@@ -189,6 +189,27 @@ if view == "María View":
     )
 
     # ----------------------------
+    # Persona-test improvement
+    # ----------------------------
+
+    st.markdown("### What can I do next?")
+
+    st.write(
+        "- If a transaction is **Corroborated**, stronger independent "
+        "support could help, such as a matching bank record, platform "
+        "record, invoice, or receipt linked to the payment.\n"
+        "- If a transaction is **Unresolved**, clearer evidence is needed "
+        "to show what the payment was for and how it relates to the business.\n"
+        "- **Excluded** transactions do not move toward Verified unless "
+        "the exclusion itself was incorrect."
+    )
+
+    st.caption(
+        "This MVP does not collect new evidence. It only explains what "
+        "type of additional support could make the evidence stronger."
+    )
+
+    # ----------------------------
     # Full evidence table
     # ----------------------------
 

@@ -261,3 +261,39 @@ A secondary UI issue was also found in María View: the MX$ amounts in the expla
 ### Next move
 
 Commit and push the mechanical-test fix, redeploy the live app, then begin the fresh-chat persona test.
+
+---
+
+## Persona Test — Worst Confusion Fixed
+
+### Persona finding
+
+María understood which transactions counted, which did not count, and whether the MX$30,000 threshold was met.
+
+Her biggest confusion was what additional evidence she would need to move a Corroborated or Unresolved transaction toward Verified.
+
+### Fix
+
+Added a small explanatory section in María View:
+
+**What can I do next?**
+
+The section explains:
+
+- Corroborated evidence may need stronger independent support, such as a matching bank record, platform record, invoice, or receipt linked to the payment.
+- Unresolved evidence needs clearer information about what the payment was for and how it relates to the business.
+- Excluded evidence does not move toward Verified unless the exclusion itself was incorrect.
+
+### Scope boundary
+
+No upload workflow, new verification feature, or new data collection was added.
+
+The change is explanatory only.
+
+### Retest
+
+The new guidance appears correctly in María View and the rest of the MVP behavior remains unchanged.
+
+### Next move
+
+Commit and push the persona-test fix, redeploy the live app, then create the persona-test log PDF and final demo materials.
