@@ -170,3 +170,36 @@ María should be able to understand:
 - what did not count;
 - why each item received its status;
 - whether the MX$30,000 threshold was met.
+
+---
+
+## Commit 6 — Add Minimal Third-Party Evidence Summary
+
+### Decision
+
+The third-party view should disclose only the minimum information needed to communicate the claim result and evidence coverage.
+
+### Included
+
+- Claim result
+- Directly Verified Amount
+- Evidence category totals
+- Provenance
+- Coverage limitations
+- Clear narrow-disclosure explanation
+
+### Privacy boundary
+
+The third-party summary does not include:
+
+- María's raw transaction history
+- Counterparty details
+- Relational data
+- Credit score
+- Risk score
+- Probability of default
+- Lending recommendation
+
+### Design principle
+
+Verify broadly, disclose narrowly.

@@ -176,3 +176,62 @@ st.caption(
     "Evidence is evaluated for this specific claim only. "
     "The system grades the evidence, not María."
 )
+
+st.divider()
+
+# ----------------------------
+# Third-Party Summary
+# ----------------------------
+
+st.markdown("### Third-Party Evidence Summary")
+
+st.caption(
+    "This is the narrow disclosure view. It does not include María's "
+    "raw transaction history or relational data."
+)
+
+summary_col1, summary_col2 = st.columns(2)
+
+with summary_col1:
+    st.metric(
+        label="Claim Result",
+        value=claim_result,
+    )
+
+with summary_col2:
+    st.metric(
+        label="Directly Verified Amount",
+        value=f"MX${verified_amount:,.0f}",
+    )
+
+st.markdown("#### Evidence Categories")
+
+st.write(
+    f"- Verified: MX${verified_total:,.0f}\n"
+    f"- Corroborated: MX${corroborated_total:,.0f}\n"
+    f"- Unresolved: MX${unresolved_total:,.0f}\n"
+    f"- Excluded: MX${excluded_total:,.0f}"
+)
+
+st.markdown("#### Provenance")
+
+st.write(
+    "Evidence was derived from synthetic SPEI records, synthetic Mercado Pago "
+    "records, and synthetic cash evidence."
+)
+
+st.markdown("#### Coverage Limitations")
+
+st.write(
+    "- Only the provided synthetic evidence was evaluated.\n"
+    "- Cash without independent supporting evidence is not directly verified.\n"
+    "- Corroborated and unresolved evidence does not enter the directly verified total.\n"
+    "- Missing or ambiguous evidence can reduce coverage.\n"
+    "- The result applies only to the stated monthly inflow claim.\n"
+    "- This is not a credit score, risk score, probability of default, or lending recommendation."
+)
+
+st.info(
+    "Verify broadly, disclose narrowly: this summary shares only the minimum "
+    "information needed to communicate the claim result and evidence coverage."
+)
