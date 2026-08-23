@@ -203,3 +203,20 @@ The third-party summary does not include:
 ### Design principle
 
 Verify broadly, disclose narrowly.
+---
+
+## Session Close — Packet Added to Repository
+
+### What changed today
+
+- Added the finalized Week 2 Packet as `docs/PACKET.md`.
+- Added the approved image-generated mockup as `docs/evidence_mockup.png`.
+- Confirmed the packet includes the problem, exact user, success definition, mockup, Mermaid flowchart, Mermaid swimlane, benchmark, three-year long view, scope cut, architecture + stack, and test plan.
+
+### Next move
+
+Run the documented mechanical test pass, identify at least one real issue, fix it, and redeploy before beginning the persona test.
+
+### Repository status
+
+Packet files are ready to commit and push.
