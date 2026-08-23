@@ -220,3 +220,44 @@ Run the documented mechanical test pass, identify at least one real issue, fix i
 ### Repository status
 
 Packet files are ready to commit and push.
+
+---
+
+## Mechanical Test Pass — Bug Found and Fixed
+
+### Test result
+
+The core evidence classification and verified-only threshold tests passed.
+
+### Bug found
+
+The original Third-Party Evidence Summary was displayed on the same page as María's full evidence table. A third party could scroll upward and see raw transaction-level evidence, which conflicted with the design principle:
+
+**Verify broadly, disclose narrowly.**
+
+A secondary UI issue was also found in María View: the MX$ amounts in the explanatory sentence were interpreted as Markdown math formatting and rendered incorrectly.
+
+### Fix
+
+- Added separate **María View** and **Third-Party View** modes.
+- María View retains the detailed evidence table and explanations.
+- Third-Party View now shows only:
+  - claim result;
+  - directly verified amount;
+  - evidence categories;
+  - provenance;
+  - coverage limitations.
+- Third-Party View contains no raw transaction history or relational data.
+- Escaped the currency symbol in María's explanatory text so MX$ amounts render correctly.
+
+### Retest
+
+- María View renders correctly.
+- Third-Party View contains no raw transaction table.
+- Directly Verified Amount remains MX$31,600.
+- Claim result remains Threshold met.
+- Deterministic verification logic was unchanged.
+
+### Next move
+
+Commit and push the mechanical-test fix, redeploy the live app, then begin the fresh-chat persona test.
